@@ -9,6 +9,10 @@ public class Task {
     public boolean done;
     public LocalDate dueDate;
 
+    public Task() {
+        this("", "", false, null);
+    }
+
     public Task(Integer id, String title, String desc, boolean done, LocalDate dueDate) {
         this(title, desc, done, dueDate);
         this.id = id;
