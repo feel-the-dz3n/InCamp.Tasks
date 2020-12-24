@@ -39,20 +39,27 @@ public class Main {
             System.out.println();
             System.out.println("Type task' ID to mark task");
             System.out.println("Type 'edit ID' to edit some task");
+            System.out.println("Type 'remove ID' to remove some task");
             System.out.println("Type anything else to go back");
 
             var line = scanner.nextLine();
             try {
                 Integer id;
 
-                if (line.startsWith("edit")) {
+                boolean isEdit = line.startsWith("edit"), isRemove = line.startsWith("remove");
+
+                if (isEdit || isRemove) {
                     var split = line.split(" ");
                     id = Integer.parseInt(split[1]);
 
                     for (var task : tasks) {
                         if (task.id == id) {
-                            editTask(task);
-                            tasksRepository.updateTask(task);
+                            if (isEdit) {
+                                editTask(task);
+                                tasksRepository.updateTask(task);
+                            } else if (isRemove) {
+                                tasksRepository.removeTask(task);
+                            }
                             break;
                         }
                     }
