@@ -11,7 +11,7 @@ public class Main {
 
     public static String taskToString(Task task) {
         return String.format(
-                "%-3d. [%s] %s (%s)\n%s\n",
+                "%d. [%s] %s (%s)\n%s\n",
                 task.id,
                 task.done ? "x" : " ",
                 task.title,
@@ -30,6 +30,11 @@ public class Main {
             tasks = tasksRepository.fetchTasks();
         } catch (Exception e) {
             e.printStackTrace();
+            return;
+        }
+
+        if (tasks.size() <= 0) {
+            System.out.println("No tasks at all");
             return;
         }
 
@@ -60,7 +65,6 @@ public class Main {
                             } else if (isRemove) {
                                 tasksRepository.removeTask(task);
                             }
-                            break;
                         }
                     }
                 } else {
@@ -70,15 +74,14 @@ public class Main {
                         if (task.id == id) {
                             task.done = !task.done;
                             tasksRepository.updateTask(task);
-                            break;
                         }
                     }
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
+                break;
             }
 
-            break;
         }
     }
 
