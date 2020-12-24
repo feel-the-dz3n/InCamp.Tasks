@@ -11,7 +11,7 @@ public class Main {
 
     public static String taskToString(Task task) {
         return String.format(
-                "%3d. [%s] %s (%s)\n%s\n",
+                "%-3d. [%s] %s (%s)\n%s\n",
                 task.id,
                 task.done ? "x" : " ",
                 task.title,
@@ -51,7 +51,7 @@ public class Main {
 
                     for (var task : tasks) {
                         if (task.id == id) {
-                            task.done = !task.done;
+                            editTask(task);
                             tasksRepository.updateTask(task);
                             break;
                         }
@@ -61,7 +61,7 @@ public class Main {
 
                     for (var task : tasks) {
                         if (task.id == id) {
-                            editTask(task);
+                            task.done = !task.done;
                             tasksRepository.updateTask(task);
                             break;
                         }
@@ -128,14 +128,15 @@ public class Main {
             System.out.println("Your choice: ");
 
             var line = scanner.nextLine();
+            Integer menuEntry = Integer.parseInt(line);
 
-            if (line == "1")
+            if (menuEntry == 1)
                 tasksMenu();
-            else if (line == "2")
+            else if (menuEntry == 2)
                 createTask();
-            else if (line == "3")
+            else if (menuEntry == 3)
                 updateDatabaseCreds();
-            else if (line == "4")
+            else if (menuEntry == 4)
                 break;
         }
     }
